@@ -16,56 +16,62 @@ public class Input {
     }
     //showMainMenu
 
-    public void showMenu(){
+    public void showMenu() {
         System.out.println(
                 "1. View contacts.\n" +
-                "2. Add a new contact.\n" +
-                "3. Search a contact by name.\n" +
-                "4. Delete an existing contact.\n" +
-                "5. Exit.\n" +
-                "Enter an option (1, 2, 3, 4 or 5):");
+                        "2. Add a new contact.\n" +
+                        "3. Search a contact by name.\n" +
+                        "4. Delete an existing contact.\n" +
+                        "5. Exit.\n" +
+                        "Enter an option (1, 2, 3, 4 or 5):");
         String userInput = scanner.nextLine();
 
-        switch (userInput){
+        switch (userInput) {
             case "1":
-                Path path = FileDirectoryUtil.getPath("src", "database");
-                path = Paths.get(path.toString(), "Contacts.txt");
-                IOUtil.tryPrintContents(path);
-                showMenu();
+                ContactsUtil.viewContacts();
                 break;
             case "2":
-                //Create directory
-                Path path1 = FileDirectoryUtil.getPath("src", "database");
-                FileDirectoryUtil.tryCreateDirectory(path1);
-
-                //create file
-                path1 = Paths.get(path1.toString(), "Contacts.txt");
-                FileDirectoryUtil.tryCreateFile(path1);
-
-                IOUtil.tryWriteToFile(ContactsUtil.getContactAsStringArr(), path1);
-                IOUtil.tryPrintContents(path1);
-                showMenu();
+                addNewContact();
+                break;
+            case "3":
+                searchByName();
+                break;
+            case "4":
+                deleteByName();
                 break;
             case "5":
                 return;
             default:
                 System.out.println("Invalid option");
-                showMenu();
         }
-
+        showMenu();
     }
 
     //create New contact
+    public void addNewContact() {
+        System.out.println("Enter full name: ");
+        String fullName = scanner.nextLine();
 
+        System.out.println("Enter phone number: ");
+        String phoneNumber = scanner.nextLine();
 
+        ContactsUtil.addNewContactToFile(fullName, phoneNumber);
+    }
 
     //Search
+    public void searchByName() {
+        System.out.println("Enter full name: ");
+        String fullName = scanner.nextLine();
 
-
-
-
+        System.out.println(ContactsUtil.searchByName(fullName));
+    }
 
 
     //Delete
+    public void deleteByName() {
+        System.out.println("Enter full name: ");
+        String fullName = scanner.nextLine();
 
+        System.out.println(ContactsUtil.deleteByName(fullName));
+    }
 }

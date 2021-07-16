@@ -1,33 +1,75 @@
 package contacts;
 
-import java.sql.Array;
+import fileIO.FileDirectoryUtil;
+import fileIO.IOUtil;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsUtil {
 
-    public static List<Contacts> getSampleContacts() {
-        List<Contacts> contacts = new ArrayList<>();
+    public static void viewContacts() {
+        Path path = FileDirectoryUtil.getPath("src", "database");
+        path = Paths.get(path.toString(), "Contacts.txt");
+        IOUtil.tryPrintContents(path);
+    }
 
-        Contacts contact = new Contacts("Jesse Sosa", "1234567890");
-        Contacts contact1 = new Contacts("Prachi Phatak", "1234567890");
+    public static void addNewContactToFile(String fullName, String phoneNumber) {
+        List<String> contacts = new ArrayList<>();
+        String contact = fullName + " " + phoneNumber;
         contacts.add(contact);
-        contacts.add(contact1);
-        return contacts;
+
+        //create directory
+        Path path = FileDirectoryUtil.getPath("src", "database");
+        FileDirectoryUtil.tryCreateDirectory(path);
+
+        //create file
+        path = Paths.get(path.toString(), "Contacts.txt");
+        FileDirectoryUtil.tryCreateFile(path);
+
+        IOUtil.tryAppendToFile(contacts, path);
+        IOUtil.tryPrintContents(path);
     }
 
-    public static List<String> getContactAsStringArr() {
-        List<Contacts> contactsList = getSampleContacts();
-        List<String> contentToWrite = new ArrayList<String>();
+    public static void addContactsToFile(List<String> contacts) {
+        //create directory
+        Path path = FileDirectoryUtil.getPath("src", "database");
+        FileDirectoryUtil.tryCreateDirectory(path);
 
-        for (Contacts contacts : contactsList) {
-            String contactString = contacts.getFullName() +
-                    " " + contacts.getPhoneNumber();
-            contentToWrite.add(contactString);
+        //create file
+        path = Paths.get(path.toString(), "Contacts.txt");
+        FileDirectoryUtil.tryCreateFile(path);
+
+        IOUtil.tryWriteToFile(contacts, path);
+        IOUtil.tryPrintContents(path);
+    }
+
+    public static String searchByName(String fullName) {
+        Path path = Paths.get("src", "database", "Contacts.txt");
+        List<String> content = IOUtil.tryReadFromFile(path);
+        for (String s : content) {
+            if (s.contains(fullName)) {
+                return s;
+            }
         }
-
-        return contentToWrite;
+        return "WIP";
     }
+
+    public static boolean deleteByName(String fullName) {
+        Path path = Paths.get("src", "database", "Contacts.txt");
+        List<String> content = IOUtil.tryReadFromFile(path);
+        for (String s : content) {
+            if (s.contains(fullName)) {
+                content.remove(s);
+                addContactsToFile(content);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     //addContactToFile
     //editContactToFile
