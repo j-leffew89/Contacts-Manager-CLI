@@ -10,15 +10,23 @@ import java.util.List;
 
 public class ContactsUtil {
 
-    public static void viewContacts() {
-        Path path = FileDirectoryUtil.getPath("src", "database");
-        path = Paths.get(path.toString(), "Contacts.txt");
-        IOUtil.tryPrintContents(path);
+    public static List<Contacts> viewContacts() {
+        Path path = Paths.get("src", "database", "Contacts.txt");
+        List<String> content = IOUtil.tryReadFromFile(path);
+        List<Contacts> contacts = new ArrayList<>();
+        for (String s : content) {
+            if(!s.isEmpty()){
+            String[] arr = s.split(":");
+            Contacts contact = new Contacts(arr[0], arr[1]);
+            contacts.add(contact);
+            }
+        }
+        return contacts;
     }
 
     public static void addNewContactToFile(String fullName, String phoneNumber) {
         List<String> contacts = new ArrayList<>();
-        String contact = fullName + " " + phoneNumber;
+        String contact = fullName + " : " + phoneNumber;
         contacts.add(contact);
 
         //create directory
@@ -70,10 +78,24 @@ public class ContactsUtil {
         return false;
     }
 
+    public static void printContacts(List<Contacts> contacts) {
+        System.out.println(addPadding("Name", 30)
+                + addPadding("Phone Number", 30));
+        for (Contacts contact : contacts) {
+            System.out.println(addPadding(contact.getFullName(), 30)
+                    + addPadding(contact.getPhoneNumber(), 30));
+        }
+    }
 
-    //addContactToFile
-    //editContactToFile
-    //deleteContactToFile
-    //searchContactToFile
+
+    private static String addPadding(String word, int newLength) {
+        String paddedWord = "";
+        if (word.length() < newLength) {
+            int length = newLength - word.length();
+            paddedWord = word + " ".repeat(length);
+            paddedWord = paddedWord + "|";
+        }
+        return paddedWord;
+    }
 
 }

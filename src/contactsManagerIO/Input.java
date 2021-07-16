@@ -1,5 +1,6 @@
 package contactsManagerIO;
 
+import contacts.Contacts;
 import contacts.ContactsUtil;
 import fileIO.FileDirectoryUtil;
 import fileIO.IOUtil;
@@ -28,7 +29,7 @@ public class Input {
 
         switch (userInput) {
             case "1":
-                ContactsUtil.viewContacts();
+                ContactsUtil.printContacts(ContactsUtil.viewContacts());
                 break;
             case "2":
                 addNewContact();
