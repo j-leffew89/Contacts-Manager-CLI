@@ -1,7 +1,5 @@
 package fileIO;
 
-import contacts.Contacts;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,5 +45,9 @@ public class IOUtil {
             System.out.println("Could not write to file at: " + path.toAbsolutePath());
         }
     }
+
+    // TODO: Write a method that converts a list of string to a list of contacts
+
+//    TODO: write a method that converts a list of contacts to a list of strings
 
 }
