@@ -15,10 +15,10 @@ public class ContactsUtil {
         List<String> content = IOUtil.tryReadFromFile(path);
         List<Contacts> contacts = new ArrayList<>();
         for (String s : content) {
-            if(!s.isEmpty()){
-            String[] arr = s.split(":");
-            Contacts contact = new Contacts(arr[0], arr[1]);
-            contacts.add(contact);
+            if (!s.isEmpty()) {
+                String[] arr = s.split(":");
+                Contacts contact = new Contacts(arr[0], arr[1]);
+                contacts.add(contact);
             }
         }
         return contacts;
@@ -79,23 +79,38 @@ public class ContactsUtil {
     }
 
     public static void printContacts(List<Contacts> contacts) {
-        System.out.println(addPadding("Name", 30)
-                + addPadding("Phone Number", 30));
+        System.out.println(addPadding("Name")
+                + addPadding("Phone Number"));
+        System.out.println("-".repeat(57));
         for (Contacts contact : contacts) {
-            System.out.println(addPadding(contact.getFullName(), 30)
-                    + addPadding(contact.getPhoneNumber(), 30));
+            System.out.println(addPadding(contact.getFullName())
+                    + addPadding(formatPhoneNumber(contact.getPhoneNumber())));
         }
     }
 
-
-    private static String addPadding(String word, int newLength) {
+    private static String addPadding(String word) {
+        int givenLength = 20;
         String paddedWord = "";
-        if (word.length() < newLength) {
-            int length = newLength - word.length();
-            paddedWord = word + " ".repeat(length);
+        if (word.length() < givenLength) {
+            int length = givenLength - word.length();
+            paddedWord = " ".repeat(5) + word;
+            paddedWord = paddedWord + " ".repeat(length);
             paddedWord = paddedWord + "|";
+            paddedWord = paddedWord + " ".repeat(5);
         }
         return paddedWord;
+    }
+
+    private static String formatPhoneNumber(String phoneNumber) {
+        String trimmedPhoneNumber = phoneNumber.trim();
+        String formattedPhoneNumber = "";
+        if (trimmedPhoneNumber.length() == 7) {
+            formattedPhoneNumber = trimmedPhoneNumber.substring(0, 3) + "-" + trimmedPhoneNumber.substring(3, 7);
+        }else{
+            formattedPhoneNumber = trimmedPhoneNumber.substring(0, 3) + "-" + trimmedPhoneNumber.substring(3, 6) + "-"
+                    + trimmedPhoneNumber.substring(8);
+        }
+        return formattedPhoneNumber;
     }
 
 }
