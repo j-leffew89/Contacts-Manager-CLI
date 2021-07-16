@@ -2,12 +2,12 @@ package contacts;
 
 import java.util.Objects;
 
-public class Contacts {
+public class Contact {
 
     private String fullName;
     private String phoneNumber;
 
-    public Contacts(String fullName, String phoneNumber) {
+    public Contact(String fullName, String phoneNumber) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
     }

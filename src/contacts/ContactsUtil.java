@@ -10,14 +10,14 @@ import java.util.List;
 
 public class ContactsUtil {
 
-    public static List<Contacts> viewContacts() {
+    public static List<Contact> viewContacts() {
         Path path = Paths.get("src", "database", "Contacts.txt");
         List<String> content = IOUtil.tryReadFromFile(path);
-        List<Contacts> contacts = new ArrayList<>();
+        List<Contact> contacts = new ArrayList<>();
         for (String s : content) {
             if (!s.isEmpty()) {
                 String[] arr = s.split(":");
-                Contacts contact = new Contacts(arr[0], arr[1]);
+                Contact contact = new Contact(arr[0], arr[1]);
                 contacts.add(contact);
             }
         }
@@ -78,11 +78,11 @@ public class ContactsUtil {
         return false;
     }
 
-    public static void printContacts(List<Contacts> contacts) {
+    public static void printContacts(List<Contact> contacts) {
         System.out.println(addPadding("Name")
                 + addPadding("Phone Number"));
         System.out.println("-".repeat(57));
-        for (Contacts contact : contacts) {
+        for (Contact contact : contacts) {
             System.out.println(addPadding(contact.getFullName())
                     + addPadding(formatPhoneNumber(contact.getPhoneNumber())));
         }

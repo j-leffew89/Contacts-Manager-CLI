@@ -1,12 +1,7 @@
 package contactsManagerIO;
 
-import contacts.Contacts;
 import contacts.ContactsUtil;
-import fileIO.FileDirectoryUtil;
-import fileIO.IOUtil;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Input {
