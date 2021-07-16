@@ -1,3 +1,4 @@
+import contacts.ContactsUtil;
 import fileIO.FileDirectoryUtil;
 import fileIO.IOUtil;
 
@@ -25,22 +26,13 @@ public class ContactsManagerApp {
         System.out.println(path.toAbsolutePath());
 
         // Try to print the contents of the file BEFORE we write
-        IOUtil.tryPrintContents(path);
+        //IOUtil.tryPrintContents(path);
 
         //Try to write to the file
-        IOUtil.tryWriteToFile(getContent(), path);
+        IOUtil.tryWriteToFile(ContactsUtil.getContactAsStringArr(), path);
 
         // Try to print the contents of the file AFTER we write
         IOUtil.tryPrintContents(path);
 
-    }
-
-    public static List<String> getContent(){
-        List<String> contentToWrite = new ArrayList<>();
-        contentToWrite.add("This is a new line!");
-        contentToWrite.add("Another ONE!");
-        contentToWrite.add("AGAIN!");
-
-        return contentToWrite;
     }
 }
