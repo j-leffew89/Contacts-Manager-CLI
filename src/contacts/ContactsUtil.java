@@ -9,8 +9,8 @@ public class ContactsUtil {
     public static List<Contacts> getSampleContacts() {
         List<Contacts> contacts = new ArrayList<>();
 
-        Contacts contact = new Contacts(new Person("Jesse", "Sosa"), "1234567890");
-        Contacts contact1 = new Contacts(new Person("Prachi", "Phatak"), "1234567890");
+        Contacts contact = new Contacts("Jesse Sosa", "1234567890");
+        Contacts contact1 = new Contacts("Prachi Phatak", "1234567890");
         contacts.add(contact);
         contacts.add(contact1);
         return contacts;
@@ -21,7 +21,7 @@ public class ContactsUtil {
         List<String> contentToWrite = new ArrayList<String>();
 
         for (Contacts contacts : contactsList) {
-            String contactString = contacts.getPerson().getFirstName() + " " + contacts.getPerson().getLastName() +
+            String contactString = contacts.getFullName() +
                     " " + contacts.getPhoneNumber();
             contentToWrite.add(contactString);
         }

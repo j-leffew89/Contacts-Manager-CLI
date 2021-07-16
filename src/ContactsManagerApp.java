@@ -1,4 +1,5 @@
 import contacts.ContactsUtil;
+import contactsManagerIO.Input;
 import fileIO.FileDirectoryUtil;
 import fileIO.IOUtil;
 
@@ -13,26 +14,9 @@ public class ContactsManagerApp {
     }
 
     public static void init() {
-        // Try to create the directory
-        Path path = FileDirectoryUtil.getPath("src", "database");
 
-        FileDirectoryUtil.tryCreateDirectory(path);
-
-        // Try to create the file
-        path = Paths.get(path.toString(), "Contacts.txt");
-        FileDirectoryUtil.tryCreateFile(path);
-
-        // Print out the final location of the file
-        System.out.println(path.toAbsolutePath());
-
-        // Try to print the contents of the file BEFORE we write
-        //IOUtil.tryPrintContents(path);
-
-        //Try to write to the file
-        IOUtil.tryWriteToFile(ContactsUtil.getContactAsStringArr(), path);
-
-        // Try to print the contents of the file AFTER we write
-        IOUtil.tryPrintContents(path);
+        Input input = new Input();
+        input.showMenu();
 
     }
 }
