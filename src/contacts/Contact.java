@@ -1,7 +1,6 @@
 package contacts;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 public class Contact implements Comparator<Contact> {
 
@@ -20,19 +19,11 @@ public class Contact implements Comparator<Contact> {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String toString(){
+    public String toString() {
         return fullName + ":" + phoneNumber;
     }
 

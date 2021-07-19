@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 public class FileDirectoryUtil {
 
-
     public static void tryCreateDirectory(Path pathToCreate) {
 
         if (!doesPathExist(pathToCreate)) {
@@ -35,21 +34,11 @@ public class FileDirectoryUtil {
         }
     }
 
-    public static Path getPath(String filename) {
-        return Paths.get(filename);
-    }
-
     public static Path getPath(String parentDirectory, String fileName) {
         return Paths.get(parentDirectory, fileName);
-    }
-
-    public static Path getPath(String parentDirectory, String childDirectory, String fileName) {
-        return Paths.get(parentDirectory, childDirectory, fileName);
     }
 
     public static boolean doesPathExist(Path path) {
         return Files.exists(path);
     }
-
-
 }
