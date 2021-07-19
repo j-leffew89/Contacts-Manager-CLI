@@ -14,6 +14,7 @@ public class ContactsUtil {
         Path path = Paths.get("src", "database", "Contacts.txt");
         List<String> content = IOUtil.tryReadFromFile(path);
         List<Contact> contacts = new ArrayList<>();
+        assert content != null;
         for (String s : content) {
             if (!s.isEmpty()) {
                 String[] arr = s.split(":");
@@ -50,20 +51,19 @@ public class ContactsUtil {
         IOUtil.tryPrintContents(path);
     }
 
-    public static String searchByName(String fullName) {
-        Path path = Paths.get("src", "database", "Contacts.txt");
-        List<String> content = IOUtil.tryReadFromFile(path);
-        for (String s : content) {
+    public static String searchByName(String fullName, List<Contact> contactsList) {
+        for (String s : convertContactListToStringList(contactsList)) {
             if (s.contains(fullName)) {
                 return s;
             }
         }
-        return "WIP";
+        return null;
     }
 
     public static boolean deleteByName(String fullName) {
         Path path = Paths.get("src", "database", "Contacts.txt");
         List<String> content = IOUtil.tryReadFromFile(path);
+        assert content != null;
         for (String s : content) {
             if (s.contains(fullName)) {
                 content.remove(s);
@@ -74,6 +74,12 @@ public class ContactsUtil {
         return false;
     }
 
-
+    public static List<String> convertContactListToStringList(List<Contact> contacts) {
+        List<String> contactList = new ArrayList<>();
+        for (Contact contact : contacts) {
+            contactList.add(contact.toString());
+        }
+        return contactList;
+    }
 
 }
