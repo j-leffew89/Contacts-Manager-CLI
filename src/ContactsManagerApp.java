@@ -1,12 +1,5 @@
-import contacts.ContactsUtil;
-import contactsManagerIO.Input;
-import fileIO.FileDirectoryUtil;
-import fileIO.IOUtil;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import ConsoleManager.ConsoleUIProvider;
+import ConsoleManager.Input;
 
 public class ContactsManagerApp {
     public static void main(String[] args) {
@@ -15,8 +8,8 @@ public class ContactsManagerApp {
 
     public static void init() {
 
-        Input input = new Input();
-        input.showMenu();
+        ConsoleUIProvider uiProvider = new ConsoleUIProvider();
+        uiProvider.printMainMenu();
 
     }
 }

@@ -1,9 +1,12 @@
 package fileIO;
 
+import contacts.Contact;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +41,17 @@ public class IOUtil {
         }
     }
 
+    public static void tryAppendToFile(String contactString, Path path) {
+        try {
+            List<String> content = new ArrayList<>();
+            content.add(contactString);
+
+            Files.write(path, content, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println("Could not write to file at: " + path.toAbsolutePath());
+        }
+    }
+
     public static void tryWriteToFile(List<String> content, Path path) {
         try {
             Files.write(path, content);
@@ -46,8 +60,20 @@ public class IOUtil {
         }
     }
 
-    // TODO: Write a method that converts a list of string to a list of contacts
+//    public static String convertContactToString(Contact contact){
+//
+//    }
 
-//    TODO: write a method that converts a list of contacts to a list of strings
+
+//    // TODO: Write a method that converts a list of string to a list of contacts
+//    public static List<Contact> convertContactListToStringList(List<String> contactStringList){
+//
+//    }
+//
+//
+////    TODO: write a method that converts a list of contacts to a list of strings
+//public static List<String> convertStringContactListToContactList(List<Contcat> contactStringList){
+//
+//}
 
 }

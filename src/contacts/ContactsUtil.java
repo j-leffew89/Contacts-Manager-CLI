@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ContactsUtil {
 
-    public static List<Contact> viewContacts() {
+    public static List<Contact> getContacts() {
         Path path = Paths.get("src", "database", "Contacts.txt");
         List<String> content = IOUtil.tryReadFromFile(path);
         List<Contact> contacts = new ArrayList<>();
@@ -24,11 +24,7 @@ public class ContactsUtil {
         return contacts;
     }
 
-    public static void addNewContactToFile(String fullName, String phoneNumber) {
-        List<String> contacts = new ArrayList<>();
-        String contact = fullName + " : " + phoneNumber;
-        contacts.add(contact);
-
+    public static void addNewContactToFile(Contact contact) {
         //create directory
         Path path = FileDirectoryUtil.getPath("src", "database");
         FileDirectoryUtil.tryCreateDirectory(path);
@@ -37,7 +33,7 @@ public class ContactsUtil {
         path = Paths.get(path.toString(), "Contacts.txt");
         FileDirectoryUtil.tryCreateFile(path);
 
-        IOUtil.tryAppendToFile(contacts, path);
+        IOUtil.tryAppendToFile(contact.toString(), path);
         IOUtil.tryPrintContents(path);
     }
 
@@ -78,39 +74,6 @@ public class ContactsUtil {
         return false;
     }
 
-    public static void printContacts(List<Contact> contacts) {
-        System.out.println(addPadding("Name")
-                + addPadding("Phone Number"));
-        System.out.println("-".repeat(57));
-        for (Contact contact : contacts) {
-            System.out.println(addPadding(contact.getFullName())
-                    + addPadding(formatPhoneNumber(contact.getPhoneNumber())));
-        }
-    }
 
-    private static String addPadding(String word) {
-        int givenLength = 20;
-        String paddedWord = "";
-        if (word.length() < givenLength) {
-            int length = givenLength - word.length();
-            paddedWord = " ".repeat(5) + word;
-            paddedWord = paddedWord + " ".repeat(length);
-            paddedWord = paddedWord + "|";
-            paddedWord = paddedWord + " ".repeat(5);
-        }
-        return paddedWord;
-    }
-
-    private static String formatPhoneNumber(String phoneNumber) {
-        String trimmedPhoneNumber = phoneNumber.trim();
-        String formattedPhoneNumber = "";
-        if (trimmedPhoneNumber.length() == 7) {
-            formattedPhoneNumber = trimmedPhoneNumber.substring(0, 3) + "-" + trimmedPhoneNumber.substring(3, 7);
-        }else{
-            formattedPhoneNumber = trimmedPhoneNumber.substring(0, 3) + "-" + trimmedPhoneNumber.substring(3, 6) + "-"
-                    + trimmedPhoneNumber.substring(8);
-        }
-        return formattedPhoneNumber;
-    }
 
 }
