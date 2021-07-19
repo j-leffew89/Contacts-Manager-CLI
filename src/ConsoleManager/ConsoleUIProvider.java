@@ -2,6 +2,8 @@ package ConsoleManager;
 
 import contacts.Contact;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,11 +21,12 @@ public class ConsoleUIProvider {
     public  void printMainMenu(){
         System.out.println(
                 "1. View contacts.\n" +
-                        "2. Add a new contact.\n" +
-                        "3. Search a contact by name.\n" +
-                        "4. Delete an existing contact.\n" +
-                        "5. Exit.\n" +
-                        "Enter an option (1, 2, 3, 4 or 5):");
+                "2. Add a new contact.\n" +
+                "3. Search a contact by name.\n" +
+                "4. Delete an existing contact.\n" +
+                "5. Sort Contact list by name.(A-Z)\n" +
+                "6. Exit.\n" +
+                "Enter an option (1, 2, 3, 4, 5 or 6):");
         String userInput = scanner.nextLine();
         List<Contact> contactsList = input.getContacts();
         switch (userInput) {
@@ -41,11 +44,24 @@ public class ConsoleUIProvider {
                 printDeleteNewContactMenu();
                 break;
             case "5":
+                printSortedContactList(contactsList);
+                break;
+            case "6":
                 return;
             default:
                 System.out.println("Invalid option");
         }
         printMainMenu();
+    }
+
+    private void printReversedContactList(List<Contact> contactsList) {
+        contactsList.sort(new Contact());
+        printContacts(contactsList);
+    }
+
+    private void printSortedContactList(List<Contact> contactsList) {
+        contactsList.sort(new Contact());
+        printContacts(contactsList);
     }
 
     public  void printAddNewContactMenu(List<Contact> contactsList){
