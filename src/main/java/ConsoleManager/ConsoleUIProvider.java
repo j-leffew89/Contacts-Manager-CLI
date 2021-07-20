@@ -14,16 +14,19 @@ public class ConsoleUIProvider {
 
     public ConsoleUIProvider() {
         this.scanner = new Scanner(System.in);
+        printWelcomeMessage();
     }
 
     public void printMainMenu() {
+
         System.out.println(
-                "1. View contacts.\n" +
+                "\n" +
+                        "1. View contacts.\n" +
                         "2. Add a new contact.\n" +
                         "3. Search a contact by name.\n" +
                         "4. Delete an existing contact.\n" +
                         "5. Sort Contact list by name.(A-Z)\n" +
-                        "6. Exit.\n" +
+                        "6. Exit.\n\n" +
                         "Enter an option (1, 2, 3, 4, 5 or 6):");
         String userInput = scanner.nextLine();
         List<Contact> contactsList = input.getContacts();
@@ -33,18 +36,18 @@ public class ConsoleUIProvider {
                 break;
             case "2":
                 printAddNewContactMenu(contactsList);
-                System.out.println(contactsList);
                 break;
             case "3":
                 printSearchNewContactMenu(contactsList);
                 break;
             case "4":
-                printDeleteNewContactMenu();
+                printDeleteNewContactMenu(contactsList);
                 break;
             case "5":
                 printSortedContactList(contactsList);
                 break;
             case "6":
+                printThankYouMessage();
                 return;
             default:
                 System.out.println("Invalid option");
@@ -52,12 +55,24 @@ public class ConsoleUIProvider {
         printMainMenu();
     }
 
+    private void printWelcomeMessage() {
+        System.out.println(
+                "*******************************************************************************************\n" +
+                "--------------------------------- Welcome to ContactZilla ---------------------------------\n" +
+                "*******************************************************************************************");
+    }
+
+    private void printThankYouMessage() {
+        System.out.println(
+                "***************************** Thank you for visiting ContactZilla *****************************");
+    }
+
     private void printSortedContactList(List<Contact> contactsList) {
         contactsList.sort(new Contact());
         printContacts(contactsList);
     }
 
-    public void printAddNewContactMenu(List<Contact> contactsList) {
+    public void printAddNewContactMenu(List<Contact> contactList) {
         System.out.println("Enter full name: ");
         String fullName = scanner.nextLine();
 
@@ -65,29 +80,50 @@ public class ConsoleUIProvider {
         String phoneNumber = scanner.nextLine();
 
         Contact contact = new Contact(fullName, phoneNumber);
-        contactsList.add(contact);
-        input.addNewContact(contact);
+        if (input.addNewContact(contactList, contact)) {
+            System.out.println("Contact added successfully!");
+        } else {
+            printOverwriteMenu(contact, contactList);
+
+        }
+    }
+
+    private void printOverwriteMenu(Contact contact, List<Contact> contactList) {
+        System.out.printf("There's already a contact named %s. Do you want to overwrite it? (Yes/No)\n",
+                contact.getFullName());
+        String overWrite = scanner.nextLine();
+        if (overWrite.equalsIgnoreCase("yes")) {
+            input.overWriteContact(contactList, contact);
+        } else if (overWrite.equalsIgnoreCase("no")) {
+            return;
+        } else {
+            printOverwriteMenu(contact, contactList);
+        }
     }
 
     public void printSearchNewContactMenu(List<Contact> contactsList) {
         System.out.println("Enter full name: ");
         String fullName = scanner.nextLine();
 
-        System.out.println(input.searchByName(fullName, contactsList));
+        printContacts(input.searchByName(fullName, contactsList));
     }
 
-    public void printDeleteNewContactMenu() {
+    public void printDeleteNewContactMenu(List<Contact> contactsList) {
         System.out.println("Enter full name: ");
         String fullName = scanner.nextLine();
 
-        if (input.deleteByName(fullName)) {
+        if (input.deleteByName(fullName, contactsList)) {
             System.out.println("Contact deleted successfully!");
+        } else {
+            System.out.println("Contact not found!!");
         }
-        System.out.println(input.deleteByName(fullName));
-
     }
 
     public static void printContacts(List<Contact> contacts) {
+        if (contacts.isEmpty()) {
+            System.out.println("No contact found!");
+            return;
+        }
         System.out.println(addPadding("Name")
                 + addPadding("Phone Number"));
         System.out.println("-".repeat(57));
