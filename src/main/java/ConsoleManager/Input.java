@@ -11,6 +11,10 @@ public class Input {
         return ContactsUtil.getContactsFromFile();
     }
 
+    public void addSampleContactList(List<Contact> sampleContactList){
+        ContactsUtil.addNewContactToFile(sampleContactList);
+    }
+
     public boolean addNewContact(List<Contact> contactList, Contact newContact) {
         for (Contact contact : contactList) {
             if (newContact.getFullName().equals(contact.getFullName())) {
