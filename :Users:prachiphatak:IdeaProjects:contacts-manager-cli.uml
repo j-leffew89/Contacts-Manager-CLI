@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/prachiphatak/IdeaProjects/contacts-manager-cli</OriginalElement>
+  <nodes>
+    <node x="430.0" y="284.0">contacts.ContactsUtil</node>
+    <node x="510.0" y="0.0">contacts.Contact</node>
+    <node x="-15.0" y="189.0">ConsoleManager.Input</node>
+    <node x="944.5" y="354.0">fileIO.FileDirectoryUtil</node>
+    <node x="910.0" y="125.0">fileIO.IOUtil</node>
+    <node x="-289.0" y="297.0">ContactsManagerApp</node>
+    <node x="-15.0" y="418.0">ConsoleManager.ConsoleUIProvider</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="1.15" showDependencies="false" x="642.0" y="357.6521739130435" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

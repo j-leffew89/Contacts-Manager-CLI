@@ -16,8 +16,6 @@ public class FileDirectoryUtil {
                 System.out.println("Could not create the directory at: ");
                 System.out.println(pathToCreate.toAbsolutePath());
             }
-        } else {
-            System.out.println("The path at: " + pathToCreate.toAbsolutePath() + " already exist.");
         }
     }
 
@@ -29,13 +27,11 @@ public class FileDirectoryUtil {
             } catch (IOException e) {
                 System.out.println("Could not create file at: " + path.toAbsolutePath());
             }
-        } else {
-            System.out.println("The file at: " + path.toAbsolutePath() + " already exists.");
         }
     }
 
-    public static Path getPath(String parentDirectory, String fileName) {
-        return Paths.get(parentDirectory, fileName);
+    public static Path getPath(String filepath) {
+        return Paths.get(filepath);
     }
 
     public static boolean doesPathExist(Path path) {
